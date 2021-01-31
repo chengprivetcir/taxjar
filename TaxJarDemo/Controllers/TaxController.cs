@@ -18,15 +18,6 @@ namespace TaxJarDemo.Controllers
             _FakeCalculator = FakeCalculator;
         }
 
-        //https://localhost:44351/Tax/GetRates
-//        {
-//    "Zip":"05495-2086",
-//    "Street":"312 Hurricane Lane",
-//    "City":"Williston",
-//    "State":"VT",
-//    "Country":"US"
-//}
-
         [Route("GetRates")]
         [HttpPost]
         public IActionResult GetRates(TaxAddressModel model)
@@ -41,27 +32,6 @@ namespace TaxJarDemo.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
-
-//        https://localhost:44351/Tax/GetTaxes
-//{
-//  "fromAddress":  {
-//    "zip": "92093",
-//    "street": "9500 Gilman Drive",
-//    "city": "La Jolla",
-//    "state": "CA",
-//    "country":"US"
-//  },
-//  "toAddress":  {
-//    "zip": "90002",
-//    "street": "4627 Sunset Ave",
-//    "city": "Los Angeles",
-//    "state": "CA",
-//     "country":"US"
-//  },
-//  "amount": 15.0,
-//  "shipping": 1.5
-//}
 
         [Route("GetTaxes")]
         [HttpPost]
