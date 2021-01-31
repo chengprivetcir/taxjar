@@ -38,6 +38,7 @@ Response:
 }
 
 2 Get Taxes - HttpPost
+
 URL:https://localhost:44351/Tax/GetTaxes
 
 Request:
