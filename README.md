@@ -59,6 +59,7 @@ Request:
   "amount": 15.0,
   "shipping": 1.5
 }
+
 Response
 {
     "orderTotalAmount": 16.5,
