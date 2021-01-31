@@ -10,7 +10,7 @@ namespace UnitTestTaxServices
         public void TestFakeGetRates()
         {
 
-            var service = new FakeCalculator();
+            var service = new FakeTaxCalculator();
             
             var actual = service.GetRatesForLocation("");
 
@@ -21,7 +21,7 @@ namespace UnitTestTaxServices
         public void TestFakeGetTaxes()
         {
 
-            var service = new FakeCalculator();
+            var service = new FakeTaxCalculator();
 
             var actual = service.GetTaxsForOrder("");
 

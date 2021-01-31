@@ -30,7 +30,7 @@ namespace TaxJarDemo
         {
             services.AddControllers();
             services.AddScoped<ITaxCalculator<RateResponseAttributes, TaxResponseAttributes, TaxAddressModel, OrderTaxsModel>, TaxJarCalculator>();
-            services.AddScoped<ITaxCalculator<decimal, decimal, string, string>, FakeCalculator>();
+            services.AddScoped<ITaxCalculator<decimal, decimal, string, string>, FakeTaxCalculator>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

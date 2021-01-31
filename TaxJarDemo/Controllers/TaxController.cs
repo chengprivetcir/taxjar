@@ -12,21 +12,21 @@ namespace TaxJarDemo.Controllers
     {
         //Can switch the calculator service based upon requirements
         private readonly ITaxCalculator<RateResponseAttributes, TaxResponseAttributes, TaxAddressModel, OrderTaxsModel> _TaxCalculator;
-        private readonly ITaxCalculator<decimal, decimal, string, string> _FakeCalculator;
-        public TaxController(ITaxCalculator<RateResponseAttributes, TaxResponseAttributes, TaxAddressModel, OrderTaxsModel> TaxCalculator, ITaxCalculator<decimal, decimal, string, string> FakeCalculator)
+        private readonly ITaxCalculator<decimal, decimal, string, string> _FakeTaxCalculator;
+        public TaxController(ITaxCalculator<RateResponseAttributes, TaxResponseAttributes, TaxAddressModel, OrderTaxsModel> TaxCalculator, ITaxCalculator<decimal, decimal, string, string> FakeTaxCalculator)
         {
             _TaxCalculator = TaxCalculator;
-            _FakeCalculator = FakeCalculator;
+            _FakeTaxCalculator = FakeTaxCalculator;
         }
 
         public IActionResult index()
         {
-            return Ok("Get Fake Rate:" + _FakeCalculator.GetRatesForLocation("") + " Get Fake Tax " + _FakeCalculator.GetTaxsForOrder(""));
+            return Ok("API Site is running => Get Fake Rate:" + _FakeTaxCalculator.GetRatesForLocation("") + " Get Fake Tax " + _FakeTaxCalculator.GetTaxsForOrder(""));
         }
 
         [Route("GetRates")]
         [HttpPost]
-        public IActionResult GetRates(TaxAddressModel model)
+        public IActionResult GetRates([FromBody] TaxAddressModel model)
         {
             try
             {
@@ -41,7 +41,7 @@ namespace TaxJarDemo.Controllers
 
         [Route("GetTaxes")]
         [HttpPost]
-        public IActionResult GetTaxes(OrderTaxsModel model)
+        public IActionResult GetTaxes([FromBody] OrderTaxsModel model)
         {
             try
             {

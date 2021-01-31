@@ -5,7 +5,7 @@ using TaxServices.Models;
 
 namespace TaxServices
 {
-    public class FakeCalculator : ITaxCalculator<decimal, decimal, string, string>
+    public class FakeTaxCalculator : ITaxCalculator<decimal, decimal, string, string>
     {
         public decimal GetRatesForLocation(string request)
         {
