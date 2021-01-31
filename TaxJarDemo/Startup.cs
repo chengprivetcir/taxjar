@@ -12,6 +12,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Taxjar;
 using TaxServices;
+using TaxServices.Models;
 
 namespace TaxJarDemo
 {
@@ -28,8 +29,8 @@ namespace TaxJarDemo
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddScoped<ITaxCalculator<RateResponseAttributes, TaxResponseAttributes>, TaxJarCalculator>();
-            services.AddScoped<ITaxCalculator<decimal, decimal>, FakeCalculator>();
+            services.AddScoped<ITaxCalculator<RateResponseAttributes, TaxResponseAttributes, TaxAddressModel, OrderTaxsModel>, TaxJarCalculator>();
+            services.AddScoped<ITaxCalculator<decimal, decimal, string, string>, FakeCalculator>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

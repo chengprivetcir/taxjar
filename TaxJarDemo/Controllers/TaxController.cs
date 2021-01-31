@@ -10,12 +10,18 @@ namespace TaxJarDemo.Controllers
     [ApiController]
     public class TaxController : ControllerBase
     {
-        private readonly ITaxCalculator<RateResponseAttributes, TaxResponseAttributes> _TaxCalculator;
-        private readonly ITaxCalculator<decimal, decimal> _FakeCalculator;
-        public TaxController(ITaxCalculator<RateResponseAttributes, TaxResponseAttributes> TaxCalculator, ITaxCalculator<decimal, decimal> FakeCalculator)
+        //Can switch the calculator service based upon requirements
+        private readonly ITaxCalculator<RateResponseAttributes, TaxResponseAttributes, TaxAddressModel, OrderTaxsModel> _TaxCalculator;
+        private readonly ITaxCalculator<decimal, decimal, string, string> _FakeCalculator;
+        public TaxController(ITaxCalculator<RateResponseAttributes, TaxResponseAttributes, TaxAddressModel, OrderTaxsModel> TaxCalculator, ITaxCalculator<decimal, decimal, string, string> FakeCalculator)
         {
             _TaxCalculator = TaxCalculator;
             _FakeCalculator = FakeCalculator;
+        }
+
+        public IActionResult index()
+        {
+            return Ok("Get Fake Rate:" + _FakeCalculator.GetRatesForLocation("") + " Get Fake Tax " + _FakeCalculator.GetTaxsForOrder(""));
         }
 
         [Route("GetRates")]

@@ -5,14 +5,14 @@ using TaxServices.Models;
 
 namespace TaxServices
 {
-    public class FakeCalculator : ITaxCalculator<decimal, decimal>
+    public class FakeCalculator : ITaxCalculator<decimal, decimal, string, string>
     {
-        public decimal GetRatesForLocation(TaxAddressModel request)
+        public decimal GetRatesForLocation(string request)
         {
             return 0.0m;
         }
 
-        public decimal GetTaxsForOrder(OrderTaxsModel request)
+        public decimal GetTaxsForOrder(string request)
         {
             return 0.2m;
         }

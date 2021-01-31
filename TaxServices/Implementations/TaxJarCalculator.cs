@@ -4,7 +4,7 @@ using TaxServices.Models;
 
 namespace TaxServices
 {
-    public class TaxJarCalculator : ITaxCalculator<RateResponseAttributes, TaxResponseAttributes>
+    public class TaxJarCalculator : ITaxCalculator<RateResponseAttributes, TaxResponseAttributes, TaxAddressModel, OrderTaxsModel>
     {
         private readonly string ApiKey = "5da2f821eee4035db4771edab942a4cc";
         public RateResponseAttributes GetRatesForLocation(TaxAddressModel request)
@@ -12,7 +12,7 @@ namespace TaxServices
             try
             {
                 var client = new TaxjarApi(ApiKey);
-            
+
                 if (request.Street == null || request.City == null || request.State == null || request.Country == null)
                 {
                     var rates = client.RatesForLocation(request.Zip);
