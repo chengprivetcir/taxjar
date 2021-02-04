@@ -1,11 +1,13 @@
 ﻿
+using System.Threading.Tasks;
+
 namespace TaxServices
 {
-    public interface ITaxCalculator<T1, T2, T3, T4>
+    public interface ITaxCalculator
     {
-        T1 GetRatesForLocation(T3 request);
+        Task<RateResult> GetRatesForLocationAsync(string zip);
 
-        T2 GetTaxsForOrder(T4 request);
+        Task<TaxesResult> GetTaxsForOrderAsync(TaxesRequest request);
 
     }
 }

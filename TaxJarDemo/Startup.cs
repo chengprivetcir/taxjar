@@ -9,10 +9,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Taxjar;
 using TaxServices;
-using TaxServices.Models;
+
 
 namespace TaxJarDemo
 {
@@ -29,8 +27,7 @@ namespace TaxJarDemo
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddScoped<ITaxCalculator<RateResponseAttributes, TaxResponseAttributes, TaxAddressModel, OrderTaxsModel>, TaxJarCalculator>();
-            services.AddScoped<ITaxCalculator<decimal, decimal, string, string>, FakeTaxCalculator>();
+            services.AddScoped<ITaxCalculator, TaxJarCalculator>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

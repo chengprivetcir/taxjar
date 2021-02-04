@@ -1,6 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json;
 using TaxServices;
-using TaxServices.Models;
+
 
 namespace UnitTestTaxServices
 {
@@ -8,67 +9,38 @@ namespace UnitTestTaxServices
     public class TaxJarUnitTest
     {
         [TestMethod]
-        public void TestGetRatesForZipCodeOnly()
+        public void TestGetRatesForZipCodeOnlyAsync()
         {
             var service = new TaxJarCalculator();
-            var model = new TaxAddressModel
-            {
-                Zip = "30009"
-            };
-            var actual = service.GetRatesForLocation(model);
 
-            Assert.AreEqual(0.0775m, actual.CombinedRate);
+            var actual = service.GetRatesForLocationAsync("30009").GetAwaiter().GetResult();
+
+            Assert.AreEqual("0.0775", actual.rate.combined_rate);
         }
 
-        [TestMethod]
-        public void TestGetRates()
-        {
-            var service = new TaxJarCalculator();
-            var model = new TaxAddressModel
-            {
-                Zip = "30009",
-                Street = "7221 Avlon Blvd",
-                City = "Alpharetta",
-                State = "GA",
-                Country = "US"
-            };
-            var actual = service.GetRatesForLocation(model);
-
-            Assert.AreEqual(0.0775m, actual.CombinedRate);
-        }
 
 
         [TestMethod]
         public void TestGetOrderTaxes()
         {
             var service = new TaxJarCalculator();
-            var fromAddress = new TaxAddressModel
+            var request = new TaxesRequest
             {
-                Zip = "92093",
-                Street = "9500 Gilman Drive",
-                City = "La Jolla",
-                State = "CA",
-                Country = "US"
+                from_country = "US",
+                from_state = "NJ",
+                from_zip = "07001",
+                to_country = "US",
+                to_zip = "07446",
+                to_state = "NJ",
+                shipping = 1.5,
+                amount = 16.50
             };
-            var toAddress = new TaxAddressModel
-            {
-                Zip = "90002",
-                Street = "4627 Sunset Ave",
-                City = "Los Angeles",
-                State = "CA",
-                Country = "US"
-            };
-            var model = new OrderTaxsModel
-            {
-                FromAddress = fromAddress,
-                ToAddress = toAddress,
-                Amount = 15.0m,
-                Shipping = 1.5m
-            };
-            var actual = service.GetTaxsForOrder(model);
 
 
-            Assert.AreEqual(1.43m, actual.AmountToCollect);
+            var actual = service.GetTaxsForOrderAsync(request).GetAwaiter().GetResult();
+
+
+            Assert.AreEqual(1.19, actual.tax.amount_to_collect);
         }
     }
 }
