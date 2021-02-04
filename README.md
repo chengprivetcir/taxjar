@@ -37,13 +37,12 @@ Request:
   "to_zip": "07446",
   "to_state": "NJ",
   "amount": 16.50,
-  "shipping": 1.5
-  
+  "shipping": 1.5 
 }
 
 Response
 {
-    "tax": {
+   "tax": {
         "amount_to_collect": 1.19,
         "freight_taxable": true,
         "has_nexus": true,
