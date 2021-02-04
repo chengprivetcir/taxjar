@@ -2,81 +2,61 @@
 
 .net Core API demo 
 
-1 Get Rates - HttpPost
+1 Get Rates - HttpGet With Bearer Token
 
-URL:https://localhost:44351/Tax/GetRates
-
-Request:
-{
-    "Zip":"05495-2086",
-    "Street":"312 Hurricane Lane",
-    "City":"Williston",
-    "State":"VT",
-    "Country":"US"
-}
+URL:https://localhost:44351/Tax/GetRates?Zip=30009
 
 Response:
 {
-    "zip": "05495-2086",
-    "state": "VT",
-    "stateRate": 0.06,
-    "county": "CHITTENDEN",
-    "countyRate": 0.0,
-    "city": "WILLISTON",
-    "cityRate": 0.0,
-    "combinedDistrictRate": 0.0,
-    "combinedRate": 0.06,
-    "freightTaxable": true,
-    "country": "US",
-    "name": null,
-    "countryRate": 0.0,
-    "standardRate": 0,
-    "reducedRate": 0,
-    "superReducedRate": 0,
-    "parkingRate": 0,
-    "distanceSaleThreshold": 0
+    "rate": {
+        "city": "ALPHARETTA",
+        "city_rate": "0.0",
+        "combined_district_rate": "0.0075",
+        "combined_rate": "0.0775",
+        "country": "US",
+        "country_rate": "0.0",
+        "county": "FULTON",
+        "county_rate": "0.03",
+        "freight_taxable": true,
+        "state": "GA",
+        "state_rate": "0.04",
+        "zip": "30009"
+    }
 }
 
-2 Get Taxes - HttpPost
+2 Get Taxes - HttpPost With Bearer Token
 
 URL:https://localhost:44351/Tax/GetTaxes
 
 Request:
 {
-  "fromAddress":  {
-    "zip": "92093",
-    "street": "9500 Gilman Drive",
-    "city": "La Jolla",
-    "state": "CA",
-    "country":"US"
-  },
-  "toAddress":  {
-    "zip": "90002",
-    "street": "4627 Sunset Ave",
-    "city": "Los Angeles",
-    "state": "CA",
-     "country":"US"
-  },
-  "amount": 15.0,
+  "from_country": "US",
+  "from_zip": "07001",
+  "from_state": "NJ",
+  "to_country": "US",
+  "to_zip": "07446",
+  "to_state": "NJ",
+  "amount": 16.50,
   "shipping": 1.5
+  
 }
 
 Response
 {
-    "orderTotalAmount": 16.5,
-    "shipping": 1.5,
-    "taxableAmount": 15.0,
-    "amountToCollect": 1.43,
-    "rate": 0.095,
-    "hasNexus": true,
-    "freightTaxable": false,
-    "taxSource": "destination",
-    "exemptionType": null,
-    "jurisdictions": {
-        "country": "US",
-        "state": "CA",
-        "county": "LOS ANGELES COUNTY",
-        "city": "LOS ANGELES"
-    },
-    "breakdown": null
+    "tax": {
+        "amount_to_collect": 1.19,
+        "freight_taxable": true,
+        "has_nexus": true,
+        "jurisdictions": {
+            "city": "RAMSEY",
+            "country": "US",
+            "county": "BERGEN",
+            "state": "NJ"
+        },
+        "order_total_amount": 18,
+        "rate": 0.06625,
+        "shipping": 1.5,
+        "tax_source": "destination",
+        "taxable_amount": 18
+    }
 }
